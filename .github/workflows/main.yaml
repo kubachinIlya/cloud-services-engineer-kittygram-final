@@ -147,42 +147,46 @@ jobs:
       - build_and_push_gateway_to_docker_hub
       - build_and_push_frontend_to_docker_hub
     steps:
-      - name: Clone repository
+      - name: Checkout repo
         uses: actions/checkout@v6
       
-      - name: Transfer compose file to server
+      - name: Copy docker-compose.yml via ssh
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           source: "docker-compose.production.yml"
-          target: "kittygram" 
+          target: "kittygram"
           use_insecure_cipher: true
           timeout: 60s
           command_timeout: 10m
       
-      - name: Remote deployment via SSH
+      - name: Executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         env:
           ENV_DATA: ${{ secrets.ENV }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}   
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
-          envs: ENV_DATA
+          envs: ENV_DATA, DOCKER_USERNAME   
           script: |
             cd kittygram
             echo "$ENV_DATA" > .env
-            # Загрузка актуальных образов с Docker Hub
-            sudo docker compose -f docker-compose.production.yml pull
-            # Перезапуск контейнеров
-            sudo docker compose -f docker-compose.production.yml down
-            sudo docker compose -f docker-compose.production.yml up -d
-            # Применение миграций и подготовка статических файлов
-            sudo docker compose -f docker-compose.production.yml exec backend python manage.py migrate
-            sudo docker compose -f docker-compose.production.yml exec backend python manage.py collectstatic --no-input
-            sudo docker compose -f docker-compose.production.yml exec backend cp -r /app/collected_static/. /backend_static/
+            
+            # Выполняет pull образов с Docker Hub
+            docker compose -f docker-compose.production.yml pull
+            
+            # Перезапускает все контейнеры
+            docker compose -f docker-compose.production.yml down
+            docker compose -f docker-compose.production.yml up -d
+            
+            # Выполняет миграции и сбор статики
+            docker compose -f docker-compose.production.yml exec backend python manage.py migrate
+            docker compose -f docker-compose.production.yml exec backend python manage.py collectstatic --no-input
+            docker compose -f docker-compose.production.yml exec backend cp -r /app/collected_static/. /backend_static/
 
   pytests:
     needs:
