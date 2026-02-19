@@ -3,12 +3,7 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv('SECRET_KEY')
-if not SECRET_KEY:
-    raise ValueError(
-        'SECRET_KEY не установлен в переменных окружения. '
-        'Проверьте файл .env'
-    )
+SECRET_KEY = os.getenv("SECRET_KEY", get_random_secret_key())
 
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
