@@ -3,8 +3,6 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECRET KEY должен быть только из переменной окружения!
-# Убираем значение по умолчанию - в продакшене оно обязательно должно быть в .env
 SECRET_KEY = os.getenv('SECRET_KEY')
 if not SECRET_KEY:
     raise ValueError(
