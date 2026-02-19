@@ -73,6 +73,7 @@ jobs:
           POSTGRES_DB: django_db 
           DB_HOST: 127.0.0.1
           DB_PORT: 5432
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: |
           cd backend/
           python manage.py test
