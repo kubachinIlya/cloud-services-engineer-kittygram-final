@@ -1,17 +1,6 @@
-# backend/Dockerfile
-FROM python:3.9-slim
-
+FROM python:3.10
 WORKDIR /app
-
-# Копируем requirements и устанавливаем зависимости
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Копируем код проекта
+RUN pip install -r requirements.txt --no-cache-dir
 COPY . .
-
-# Создаем папки для статики и медиа
-RUN mkdir -p /static /media
-
-# Команда для запуска приложения
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "kittygram_backend.wsgi"]
+CMD gunicorn kittygram_backend.wsgi:application --bind 0.0.0.0:8000
