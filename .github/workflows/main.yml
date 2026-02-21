@@ -183,7 +183,7 @@ jobs:
             # Выполняет миграции и сбор статики
             docker compose -f docker-compose.production.yml exec backend python manage.py migrate
             docker compose -f docker-compose.production.yml exec backend python manage.py collectstatic --no-input
-
+            
   pytests:
     needs:
       - deploy
@@ -197,6 +197,10 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Install system dependencies for Pillow
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libjpeg-dev zlib1g-dev
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
