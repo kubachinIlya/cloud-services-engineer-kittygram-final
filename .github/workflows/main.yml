@@ -4,9 +4,10 @@
 name: Main deployment workflow
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - main
 
 jobs:
   frontend_tests:
