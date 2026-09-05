@@ -4,7 +4,7 @@ terraform {
       s3 = "https://storage.yandexcloud.net"
     }
     bucket = "iliakubashin-kittygram-tfstate"
-    region = "ru-central1"
+    region = "us-east-1"
     key    = "tf-state.tfstate"
   }
 }
