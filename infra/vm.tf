@@ -1,7 +1,7 @@
 resource "yandex_compute_instance" "kittygram_vm" {
   name        = "kittygram-vm"
   zone        = var.zone
-  platform_id = "standard-v3"  # можно выбрать другой
+  platform_id = "standard-v3"  
 
   resources {
     cores  = 2
@@ -10,7 +10,7 @@ resource "yandex_compute_instance" "kittygram_vm" {
 
   boot_disk {
     initialize_params {
-      image_id = "fd8vkc35bs6f7lr0e8m0"  # Ubuntu 24.04 LTS (уточните ID для вашего региона)
+      image_id = "fd8vkc35bs6f7lr0e8m0"  # Ubuntu 24.04 LTS  
       size     = 30
     }
   }
