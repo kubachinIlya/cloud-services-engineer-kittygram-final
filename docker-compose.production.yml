@@ -38,7 +38,7 @@ services:
     command: >
       sh -c "mkdir -p /frontend_static/static &&
              cp -r /app/build/static/* /frontend_static/static/ &&
-             http-server -p 8000 /app/build"
+             http-server -s -p 8000 /app/build"
 
   nginx:
     image: ${DOCKER_USERNAME}/kittygram_gateway:latest
