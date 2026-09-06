@@ -25,3 +25,9 @@ variable "ssh_public_key" {
   description = "Public SSH key for VM access"
   type        = string
 }
+
+variable "token" {
+  description = "Yandex Cloud OAuth token"
+  type        = string
+  sensitive   = true
+}

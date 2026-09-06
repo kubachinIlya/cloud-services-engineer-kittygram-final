@@ -7,7 +7,8 @@ terraform {
   }
 }
 
-provider "yandex" { 
+provider "yandex" {
+  token      = var.token
   folder_id  = var.folder_id
   zone       = var.zone
 }
