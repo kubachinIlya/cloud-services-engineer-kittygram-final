@@ -30,13 +30,11 @@ services:
              cp -r /app/collected_static/. /backend_static/ &&
              gunicorn kittygram_backend.wsgi:application --bind 0.0.0.0:8000"
   
-frontend:
-  image: ${DOCKER_USERNAME}/kittygram_frontend:latest
-  env_file: .env
-  volumes:
-    - static:/frontend_static
-  command: >
-    sh -c "cp -r /app/build/static/* /frontend_static/ && http-server -p 8000 /app/build"
+  frontend:
+    image: ${DOCKER_USERNAME}/kittygram_frontend:latest
+    env_file: .env
+    volumes:
+      - static:/frontend_static
   
   nginx:
     image: ${DOCKER_USERNAME}/kittygram_gateway:latest
