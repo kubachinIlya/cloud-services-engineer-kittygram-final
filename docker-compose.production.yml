@@ -35,6 +35,8 @@ services:
     env_file: .env
     volumes:
       - static:/frontend_static
+    command: >
+      sh -c "cp -r /app/build/static/* /frontend_static/ && http-server -p 8000 /app/build"
   
   nginx:
     image: ${DOCKER_USERNAME}/kittygram_gateway:latest
