@@ -10,7 +10,7 @@ resource "yandex_compute_instance" "kittygram_vm" {
 
   boot_disk {
     initialize_params {
-      image_id = "fd8vkc35bs6f7lr0e8m0"  # Ubuntu 24.04 LTS, уточните актуальный ID
+      image_id = "fd849rcpqs7mf5d38vg5"   
       size     = 30
     }
   }
