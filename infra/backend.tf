@@ -6,5 +6,8 @@ terraform {
     bucket = "iliakubashin-kittygram-tfstate"
     region = "us-east-1"
     key    = "tf-state.tfstate"
+
+    skip_region_validation      = true
+    skip_credentials_validation = true
   }
 }
