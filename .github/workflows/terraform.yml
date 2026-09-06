@@ -78,3 +78,6 @@ jobs:
         if: github.event.inputs.action == 'apply'
         run: |
           echo "Public IP: $(terraform output -raw vm_public_ip)"
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.YC_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.YC_SECRET_KEY }}
