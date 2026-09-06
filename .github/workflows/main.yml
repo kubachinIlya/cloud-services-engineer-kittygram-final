@@ -159,7 +159,12 @@ jobs:
           use_insecure_cipher: true
           timeout: 60s
           command_timeout: 10m
-      
+      - name: Debug SSH key
+        run: |
+          echo "SSH_KEY length: ${#SSH_KEY}"
+          echo "First 10 chars: ${SSH_KEY:0:10}"
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
       - name: Executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         env:
