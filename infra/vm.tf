@@ -1,7 +1,7 @@
 resource "yandex_compute_instance" "kittygram_vm" {
   name        = "kittygram-vm"
   zone        = var.zone
-  platform_id = "standard-v3"  
+  platform_id = "standard-v3"
 
   resources {
     cores  = 2
@@ -10,7 +10,7 @@ resource "yandex_compute_instance" "kittygram_vm" {
 
   boot_disk {
     initialize_params {
-      image_id = "fd8vkc35bs6f7lr0e8m0"  # Ubuntu 24.04 LTS  
+      image_id = "fd8vkc35bs6f7lr0e8m0"  # Ubuntu 24.04 LTS, уточните актуальный ID
       size     = 30
     }
   }
@@ -18,7 +18,7 @@ resource "yandex_compute_instance" "kittygram_vm" {
   network_interface {
     subnet_id          = yandex_vpc_subnet.kittygram_subnet.id
     security_group_ids = [yandex_vpc_security_group.kittygram_sg.id]
-    nat                = true   # выдаёт публичный IP
+    nat                = true
   }
 
   metadata = {
@@ -42,9 +42,4 @@ runcmd:
   - usermod -aG docker ubuntu
 EOF
   }
-}
-
-# Выводим публичный IP для удобства
-output "vm_public_ip" {
-  value = yandex_compute_instance.kittygram_vm.network_interface.0.nat_ip_address
 }
