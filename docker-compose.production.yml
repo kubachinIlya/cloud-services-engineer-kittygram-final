@@ -36,9 +36,7 @@ services:
     volumes:
       - static:/frontend_static
     command: >
-      sh -c "mkdir -p /frontend_static/static &&
-             cp -r /app/build/static/* /frontend_static/static/ &&
-             http-server -s -p 8000 /app/build"
+      sh -c "cp -r /app/build/* /frontend_static/ && echo 'Frontend static copied' && tail -f /dev/null"
 
   nginx:
     image: ${DOCKER_USERNAME}/kittygram_gateway:latest
